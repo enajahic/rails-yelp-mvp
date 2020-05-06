@@ -1,0 +1,17 @@
+<div class="restaurant-banner" style="background-image: linear-gradient(to right, rgba(255, 226, 89, 0.5), rgba(255, 167, 81, 0.5)), url('https://source.unsplash.com/random/400x300?pizza');">
+  <div class="restaurant-banner-content">
+    <h1>Welcome to <%= @restaurant.name %>!</h1>
+    <p><%= @restaurant.address %></p>
+    <a class="btn btn-dark" href="#reviews">Discover more</a>
+  </div>
+</div>
+
+<div id="reviews" class="reviews">
+  <h2 class="text-center">Our customers' reviews</h2>
+  <div class="text-center">
+    <%= link_to "Leave new review", new_restaurant_review_path(@restaurant), class:"btn btn-danger" %>
+
+  <% @restaurant.reviews.each do |review| %>
+      <%= render template:"reviews/review", locals: {review: review} %>
+  <% end %>
+</div>

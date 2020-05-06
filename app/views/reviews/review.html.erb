@@ -1,0 +1,19 @@
+<div class="review">
+  <div class="review-rating-status <%= status_for(review) %>">
+    <p class="review-rating-emoji"> <%= review.content %><%= emoji_for(review) %></p>
+    <p class="review-rating"><%= stars_icons_for(review) %></p>
+  </div>
+
+  <div class="review-actions">
+    <div class="review-action">
+      <%= link_to review_path(review), method: :delete do %>
+        <i class="fa fa-trash" aria-hidden="true"></i>
+      <% end %>
+    </div>
+    <div class="review-action">
+      <%= link_to edit_review_path(review) do %>
+        <i class="fa fa-pencil" aria-hidden="true"></i>
+      <% end %>
+    </div>
+  </div>
+</div>

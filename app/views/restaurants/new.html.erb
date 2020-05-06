@@ -1,17 +1,15 @@
-
-<%= simple_form_for(@restaurant) do |f| %>
-    <%= f.error_notification %>
-    <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-  
-    <div class="form-inputs">
+<div class="container">
+  <div class="form-container">
+    <h1>Create a new restaurant!</h1>
+    <%= simple_form_for(@restaurant) do |f| %>
       <%= f.input :name %>
       <%= f.input :address %>
       <%= f.input :phone_number %>
-      <%= f.input :category %>
-    </div>
-  
-    <div class="form-actions">
-      <%= f.button :submit %>
-    </div>
-    <%= link_to 'Back', restaurants_path %>
-  <% end %>
+      <%= f.input :category, as: :select, collection:["chinese", "italian", "japanese", "french", "belgian"] %>
+      
+      <div class="text-right">
+        <%= f.submit class:"btn btn-danger" %>
+      </div>
+    <% end %>
+  </div>
+</div>

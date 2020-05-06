@@ -1,5 +1,7 @@
-class ReviewsController < ActionController::Base
-    before_action :set_restaurant, except: :destroy
+class ReviewsController < ApplicationController
+    before_action :set_restaurant,  only: [:new, :create]
+    before_action :set_review,      only: [:edit, :update, :destroy]
+    helper ReviewsHelper
 
     def new
       @review = Review.new
@@ -16,22 +18,35 @@ class ReviewsController < ActionController::Base
       end
     end
   
-    def destroy
-      @review = Review.find(params[:id])
-      @review.destroy
+    def edit
+    end
   
+    def update
+      if @review.update(review_params)
+        redirect_to restaurant_path(@review.restaurant)
+      else
+        render :edit
+      end
+    end
+  
+    def destroy
+      @review.destroy
+      flash[:success] = "Review has been destroyed successfully!"
       redirect_to restaurant_path(@review.restaurant)
     end
   
+  
     private
+  
+    def set_review
+      @review = Review.find(params[:id])
+    end
   
     def set_restaurant
       @restaurant = Restaurant.find(params[:restaurant_id])
     end
   
-    # STRONG PARAMS
     def review_params
-      params.require(:review).permit(:content)
+      params.require(:review).permit(:content, :rating)
     end
-  
-end
+  end
